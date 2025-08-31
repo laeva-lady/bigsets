@@ -6,17 +6,24 @@
 #let qed = [#v(0.2em)#h(1fr)$square.big$]
 
 // environments
-#let ans(body) = { [#par(justify: true)[#body]] }
-#let prf(body) = { ans[_Proof:_ #body #qed] }
+#let ans(body) = {
+  set par(justify: true)
+  body
+}
+#let prf(body) = { ans[_Preuve:_ #body #qed] }
 #let qs(body) = {
   set enum(numbering: "(a)")
   body
+  v(5pt)
+  line(length: 100%)
 }
 #let pt(body) = {
   body
 }
-
 // my code
+#let title(body) = {
+  [*#body*]
+}
 
 #let conf(doc) = [
   #set page(numbering: "1 | 1", number-align: center)
@@ -33,8 +40,7 @@
   #doc
 ]
 
-#let present_page(title: none, author_s: none, group: none, professeur_e: none,
-  program: none, due: none) = [
+#let present_page(title: none, author_s: none, group: none, professeur_e: none, program: none, due: none) = [
   #align(center)[
     #align(horizon)[
       #if title != none [
@@ -62,14 +68,13 @@
         ]
       ]
     ]
-    #align(bottom,
-      text(14pt)[
-        #if due != none [
-          \ \ \
-          Date due: #due
-        ] \ \
-        #datetime.today().display("[year]/[month]/[day]")
-      ])
+    #align(bottom, text(14pt)[
+      #if due != none [
+        \ \ \
+        Date due: #due
+      ] \ \
+      #datetime.today().display("[year]/[month]/[day]")
+    ])
   ]
   #pagebreak()
   #outline()
@@ -88,7 +93,7 @@
       #text(weight: "bold")[#title]
       #v(8pt)
       #content
-    ]
+    ],
   )
 }
 #let question(title, question, content) = {
