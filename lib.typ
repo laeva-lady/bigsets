@@ -1,33 +1,45 @@
 // code based on SylvanFranklin's Tinyset lib : https://github.com/SylvanFranklin/tinyset
 #let inv(expression) = { $(expression)^(-1)$ }
-#let implies = $==>$
-#let impl = $==>$
+#let trans(expression) = { $(expression)^(t)$ }
+#let nimp = $arrow.r.double.not$
 #let iff = $<==>$
 #let qed = [#v(0.2em)#h(1fr)$square.big$]
 
-// environments
+#let header(name: "Your Name", class: "Math", title: 0) = {
+  align(center)[
+    #name - #class - #title
+  ]
+  set par(justify: true)
+}
+
 #let ans(body) = {
   set par(justify: true)
   body
 }
+
 #let prf(body) = { ans[_Preuve:_ #body #qed] }
+
 #let qs(body) = {
   set enum(numbering: "(a)")
   body
   v(5pt)
   line(length: 100%)
 }
+
 #let pt(body) = {
   body
 }
-// my code
+
 #let title(body) = {
   [*#body*]
 }
 
-#let conf(doc) = [
-  #set page(numbering: "1 | 1", number-align: center)
-  #set text(lang: "fr", font: ("IosevkaTerm NFM", "Noto Sans CJK JP"))
+#let conf(fonts: ("IosevkaTerm NFM", "Noto Sans CJK JP"), doc) = [
+  #set page(
+    numbering: "1 | 1",
+    number-align: left,
+  )
+  #set text(lang: "fr", font: fonts)
   #set heading(numbering: "1.")
   #set par(justify: true)
 
@@ -40,7 +52,7 @@
   #doc
 ]
 
-#let present_page(title: none, author_s: none, group: none, professeur_e: none, program: none, due: none) = [
+#let present_page(title: none, author_s: none, group: none, professeur_e: none, class: none, due: none) = [
   #align(center)[
     #align(horizon)[
       #if title != none [
@@ -63,8 +75,8 @@
           Professeur.e: #professeur_e
           \ \
         ]
-        #if program != none [
-          #program
+        #if class != none [
+          #class
         ]
       ]
     ]
